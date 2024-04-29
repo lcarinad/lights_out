@@ -35,10 +35,9 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     let initialBoard = [];
     for (let y = 0; y < nrows; y++) {
       let row = [];
-      for (let x = 0; x < ncols; x++)
+      for (let x = 0; x < ncols; x++) {
         row.push(Math.random() < chanceLightStartsOn);
-    }
-    {
+      }
       initialBoard.push(row);
     }
     return initialBoard;
@@ -80,18 +79,21 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
   // TODO
   let tblBoard = [];
-  let row = [];
-  for (let x = 0; x < ncols; x++) {
-    let coord = `${y}-${x}`;
-    row.push(
-      <Cell
-        key={coord}
-        isLit={board[y][x]}
-        flipCellsAroundMe={() => flipCellsAround(coord)}
-      />
-    );
+
+  for (let y = 0; y < nrows; y++) {
+    let row = [];
+    for (let x = 0; x < ncols; x++) {
+      let coord = `${y}-${x}`;
+      row.push(
+        <Cell
+          key={coord}
+          isLit={board[y][x]}
+          flipCellsAroundMe={() => flipCellsAround(coord)}
+        />
+      );
+    }
+    tblBoard.push(<tr key={y}>{row}</tr>);
   }
-  tblBoard.push(<tr key={y}>{row}</tr>);
   return (
     <table className="Board">
       <tbody>{tblBoard}</tbody>
